@@ -1,4 +1,4 @@
-import { useState, useEffetc } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import "./App.css";
@@ -6,22 +6,22 @@ import "./App.css";
 function App() {
   const [coins, SetCoins] = useState([]);
 
-  useEffetc(() => {
+  useEffect(() => {
     axios
-      .get("")
+      .get("https://api.coingecko.com/api/v3/search/trending")
       .then((response) => {
-        SetCoins(response.data);
+        SetCoins(response.data.coins);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
-
+  console.log(coins);
   return (
   <div className="App">
     <h1>Trending Coins!</h1>
-    {(coins !== []) && coins.map((coin)=><h1>{coin.name}</h1>)}
+    { (coins !== []) && coins.map((coin,index)=><h1 key={index}>{coin.item.name}</h1>)}
   </div>
   )
   
